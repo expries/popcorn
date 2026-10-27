@@ -1,0 +1,34 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+.trace-mcp/
+
+# Runtime data and downloaded media
+transmission/downloads/
+transmission/config/
+transmission/watch/
+jackett/config/
+jackett/blackhole/
+backend/data/
+backend/logs/
+app/logs/
+
+# Generated application files
+node_modules/
+**/node_modules/
+dist/
+build/
+coverage/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# Local editor and OS files
+.DS_Store
+.idea/
+.vscode/

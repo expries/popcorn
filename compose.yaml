@@ -1,0 +1,31 @@
+include:
+  - compose.services.yaml
+
+services:
+  backend:
+    build: ./backend
+    container_name: popcorn-backend
+    env_file:
+      - ./backend/.env
+    environment:
+      - JACKETT_API_KEY=${JACKETT_API_KEY}
+      - DATABASE_URL=postgres://${POSTGRES_USER:-popcorn}:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}@postgres:5432/${POSTGRES_DB:-popcorn}
+      - JACKETT_BASE_URL=http://jackett:9117
+      - JACKETT_INDEXER=${JACKETT_INDEXER:-1337x}
+      - TRANSMISSION_URL=http://transmission:9091/transmission/rpc
+      - TORRENT_DOWNLOAD_PATH=/downloads
+      - HLS_CACHE_PATH=/cache/hls
+      - HLS_SEGMENT_DURATION=${HLS_SEGMENT_DURATION:-6}
+      - HLS_LOOKAHEAD_SEGMENTS=${HLS_LOOKAHEAD_SEGMENTS:-5}
+      - HLS_MAX_CACHE_SIZE_GB=${HLS_MAX_CACHE_SIZE_GB:-10}
+      - HLS_SESSION_MAX_AGE_HOURS=${HLS_SESSION_MAX_AGE_HOURS:-24}
+    volumes:
+      - ./transmission/downloads:/downloads:ro
+      - hls-cache:/cache/hls
+    ports:
+      - 3001:3001
+      - 3002:3002
+    depends_on:
+      - jackett
+      - transmission
+    restart: unless-stopped

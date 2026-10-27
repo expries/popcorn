@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": false,
+    // "noUnusedLocals": true,
+    // Bundler mode
+    "moduleResolution": "bundler",
+    "module": "Preserve",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "strictNullChecks": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@backend/*": ["../backend/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "eslint.config.ts"],
+  "exclude": ["dist", "node_modules"]
+}
